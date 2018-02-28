@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>A SMIL</title>
+    <link href="toggleVideo.css" rel="stylesheet">
+    <script>
+        var SVGButton = function(params){
+            var btn = document.querySelector(params.target) || params.target;
+            if (btn) {
+                // get default color fill for rollout / mouseleave
+                btn.defaultFill = btn.getAttribute('fill');
+                
+                // for some reason on safari animation-play-state: paused, cannot toggle animation-play-state
+                // when animation-play-state defined on css or js without timeout
+                setTimeout(function(){
+                    btn.style.animationPlayState = 'paused';
+                },0.01);
+                
+                // pause animation everytime it reach start animation or last animation
+                btn.addEventListener('animationiteration', function(e){
+                    e.currentTarget.style.animationPlayState = 'paused';
+                });
+                
+                // rollover animation, simple color transition
+                btn.addEventListener('mouseenter', function(e){
+                    e.currentTarget.setAttribute('fill',params.rolloverColor);
+                    if (params.rolloverHandler instanceof Function) params.rolloverHandler(e, btn);
+                });
+                
+                // rollout animation, simple color transition
+                btn.addEventListener('mouseleave', function(e){
+                    e.currentTarget.setAttribute('fill',e.currentTarget.defaultFill);
+                    if (params.rolloutHandler instanceof Function) params.rolloutHandler(e, btn);
+                });
+                
+                // click handler, change button play state to 'running' to play animation
+                btn.addEventListener('click', function(e){
+                    e.currentTarget.style.animationPlayState = 'running';
+                    if (params.clickHandler instanceof Function) params.clickHandler(e, btn, e.currentTarget.style.animationPlayState);
+                });
+            }
+            return btn;
+        }
+        
+        function onToggleVideo(e, btn, playState){
+            if (playState == 'paused') {
+                console.log('click');
+            }
+        }
+        
+        function onToggleAudio(e, btn, playState){
+            if (playState == 'paused') {
+                console.log('click');
+            }
+        }
+        
+        function onLoad(){
+            toggleVideo = new SVGButton({target:'#toggle-video', rolloverColor:'#cddc39', rolloutColor:'#f0e68c', clickHandler:onToggleVideo});
+            toggleAudio = new SVGButton({target:'#toggle-audio', rolloverColor:'#cddc39', rolloutColor:'#f0e68c', clickHandler:onToggleAudio});
+        }
+    </script>
+</head>
+<body onload="onLoad();">
+    <div id="toggle-video-wrapper">
+        <svg width=120 height=120 viewBox="0 0 30 30">
+            <g id="toggle-video" fill="#f0e68c">
+                <rect x="0" y="0" width="30" height="30" opacity="0.001"/>
+                <polygon id="toggle-video-play" points="5,5 25,15 5,25"/>
+                <rect id="toggle-video-pause1" x="7" y="5" width="6" height="20"/>
+                <rect id="toggle-video-pause2" x="17" y="5" width="6" height="20"/>
+            </g>
+        </svg>
+    </div>
+    
+    <div id="toggle-audio-wrapper">
+        <svg width=120 height=120 viewBox="0 0 30 30">
+            <style type="text/css">
+                #toggle-audio-speaker, #toggle-audio-bar1, #toggle-audio-bar2{
+                    transform-origin: 50% 50%;
+                }
+            </style>
+            <g id="toggle-audio" fill="#f0e68c">
+                <rect x="0" y="0" width="30" height="30" opacity="0.001" />
+                <polyline id='toggle-audio-speaker' points="7.454,10.219 3,10.219 3,20.219 7.454,20.219 13,25.219 13,5.219 	"/>
+                <g id="toggle-audio-bar">
+                    <rect id="audio-bar1" x="17.326" y="11.5" width="2.104" height="7"/>
+                    <rect id="audio-bar2" x="21.11" y="9.5" width="2.104" height="11"/>
+                    <rect id="audio-bar3" x="24.895" y="7.5" width="2.105" height="15"/>
+                </g>
+                <polygon id="toggle-audio-x" points="27,11.335 25.539,9.875 22.177,13.236 18.815,9.875 17.326,11.364 20.688,14.726 17.326,18.087 18.787,19.548 22.148,16.186 25.51,19.547 26.999,18.059 23.638,14.697 	"/>
+            </g>
+            
+        </svg>
+    </div>
+    
+    <!--svg>
+        <g id="toggleVideo" fill="#2BB673" >
+            <polygon id ="play1" points="5,25 5,25 5,5 25,15 25,15">
+                <animate begin="toggleVideo.click" attributeName="points" dur="250ms" to="9,25 9,5 15,5 15,21.812 15,25" fill="freeze" animation-direction="alternate"/>
+            </polygon>
+            <polygon id ="play2" points="5,25 5,25 5,5 25,15 25,15">
+                <animate begin="toggleVideo.click" attributeName="points" dur="250ms" to="17,5 23,5 23,7.375 23,25 17,25" fill="freeze" animation-direction="alternate"/>
+            </polygon>
+        </g>
+    </svg>-->
+</body>
+</html>

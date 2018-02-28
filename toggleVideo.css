@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+head, body{
+    width: 100%;
+    height: 100%;
+}
+body {
+    overflow: hidden;
+}
+
+/*Toggle Video*/
+#toggle-video-wrapper, #toggle-audio-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.3));
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.3));
+}
+#toggle-audio-wrapper{
+    top: 0px;
+    left: 120px;
+}
+#toggle-video{
+    width: 150px;
+    height: 150px;
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    transition: 400ms;
+    cursor: pointer;
+}
+#toggle-video-play{
+    transform-origin: 50% 50%;
+    animation: inherit;
+    animation-name: toggle-video-play-animation;
+}
+#toggle-video-pause1{
+    opacity: 0;
+    transform-origin: 50% 100%;
+    animation: inherit;
+    animation-name: toggle-video-pause1-animation;
+}
+#toggle-video-pause2{
+    opacity: 0;
+    transform-origin: 50% 100%;
+    animation: inherit;
+    animation-name: toggle-video-pause2-animation;
+}
+
+@keyframes toggle-video-play-animation{
+    0%{
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+    10%{
+        opacity: 1;
+        transform: scale(1.1, 1.1);
+    }
+    50%{
+        opacity: 0;
+        transform: scale(0, 0);
+    }
+    100%{
+        opacity: 0;
+        transform: scale(0, 0);
+    }
+}
+@keyframes toggle-video-pause1-animation{
+    0%{
+        opacity: 0;
+        transform: scale(1, 0);
+    }
+    50%{
+        opacity: 0;
+        transform: scale(1, 0);
+    }
+    60%{
+        opacity: 1;
+        transform: scale(1, 0.2);
+    }
+    80%{
+        opacity: 1;
+        transform: scale(1, 1.1);
+    }
+    90%{
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+@keyframes toggle-video-pause2-animation{
+    0%{
+        opacity: 0;
+        transform: scale(1, 0);
+    }
+    60%{
+        opacity: 0;
+        transform: scale(1, 0);
+    }
+    70%{
+        opacity: 1;
+        transform: scale(1, 0.2);
+    }
+    90%{
+        opacity: 1;
+        transform: scale(1, 1.1);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
+/*Toggle Audio*/
+#toggle-audio{
+    width: 150px;
+    height: 150px;
+    animation-duration: 0.8s;
+    animation-fill-mode: none;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    transition: 400ms;
+    cursor: pointer;
+}
+#toggle-audio-speaker{
+    animation: inherit;
+    animation-name: toggle-audio-speaker-animation;
+}
+#toggle-audio-bar{
+    animation: inherit;
+    animation-name: toggle-audio-bar-animation;
+}
+#toggle-audio-x{
+    animation: inherit;
+    animation-name: toggle-audio-x-animation;
+}
+
+@keyframes toggle-audio-speaker-animation{
+    0%{
+        transform: scale(1, 1);
+        transform-origin: 50% 50%;
+    }
+    50%{
+        transform: scale(1.1, 1.1);
+        transform-origin: 50% 50%;
+    }
+    100%{
+        transform: scale(1, 1);
+        transform-origin: 50% 50%;
+    }
+}
+
+@keyframes toggle-audio-bar-animation{
+    0%{
+        opacity: 1;
+        transform: scale(1, 1);
+        transform-origin: 50% 50%;
+    }
+    10%{
+        opacity: 1;
+        transform: scale(1.1, 1.1);
+        transform-origin: 50% 50%;
+    }
+    50%{
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+        transform-origin: 50% 50%;
+    }
+    100%{
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+        transform-origin: 50% 50%;
+    }
+}
+@keyframes toggle-audio-x-animation{
+    0%{
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+        transform-origin: 50% 50%;
+    }
+    50%{
+        opacity: 0;
+        transform: scale(0.5, 0.5);
+        transform-origin: 50% 50%;
+    }
+    90%{
+        opacity: 1;
+        transform: scale(1.1, 1.1);
+        transform-origin: 50% 50%;
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1, 1);
+        transform-origin: 50% 50%;
+    }
+}
